@@ -1,4 +1,4 @@
-module AlvinZhang86/cobra-examples
+module AlvinZhang86/cobra-examples/simplecmd
 
 go 1.12
 
