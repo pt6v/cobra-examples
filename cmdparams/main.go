@@ -10,7 +10,7 @@ func main() {
 	// cobra RunE functions ((Persistent)(Pre|Post)RunE) is more priority than Run functions ((Persistent)(Pre|Post)Run)
 	// run functions executing order, please see cobra.Command comments
 	rootCmd := &cobra.Command{
-		Use:                    "./cmdparams [-h|--help]",
+		Use:                    "cmdparams",
 		Aliases:                nil,
 		SuggestFor:             nil,
 		Short:                  "cobra.Command example",
