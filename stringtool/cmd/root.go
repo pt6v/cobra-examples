@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"
@@ -9,11 +10,13 @@ import (
 
 var cfgFile string
 
+var Debug bool
+
 var RootCmd = &cobra.Command{
 	Use:   "stringtool",
 	Short: "string tool",
-	Long: `String function tools, This application will show how to create modern CLI applications
-using cobra`,
+	Long: `String function tools, 
+This application will show how to create modern CLI applications using cobra`,
 }
 
 func Execute() {
@@ -25,12 +28,17 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.stringtool.yaml)")
-	RootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	RootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "config path")
+	RootCmd.PersistentFlags().BoolVarP(&Debug, "debug", "d", false, "Enable debug mode")
 }
 
 func initConfig() {
 	if cfgFile != "" {
 		viper.SetConfigFile(cfgFile)
+	}
+	if Debug {
+		logrus.SetLevel(logrus.DebugLevel)
+	} else {
+		logrus.SetLevel(logrus.InfoLevel)
 	}
 }

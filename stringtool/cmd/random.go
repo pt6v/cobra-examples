@@ -2,19 +2,21 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"math/rand"
 	"strconv"
 )
 
 var randomCmd = &cobra.Command{
-	Use:   "random",
+	Use:   "random [length]",
 	Short: "generate random string",
 	Long:  "This subcommand will return a random string",
 	Run:   runRandom,
 }
 
 func runRandom(cmd *cobra.Command, args []string) {
+	logrus.Debug("args", args)
 	if len(args) >= 1 {
 		var charLen int
 		var err error
@@ -24,10 +26,8 @@ func runRandom(cmd *cobra.Command, args []string) {
 		str := random(charLen)
 		fmt.Println(str)
 	} else {
-		fmt.Println("String length is missing")
+		logrus.Error("String length is missing")
 	}
-
-
 }
 
 const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
